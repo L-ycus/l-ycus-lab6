@@ -11,13 +11,13 @@ public class DotChaser {
    *
    * A STATIC CLASS? OH NO! GET IT OUT OF HERE!
    */
-  public static class Thing {
+  /*public static class Thing {
     // dir: 0=North, 1=East, 2=South, 3=West.
     // timeSinceLast: this is only important for "TypeB" Things.
     public int  row, col, dir, timeSinceLast;
     public char lab = 'r';
     public boolean isTypeB;
-  }
+  } */
 
   /**
    * YOU'LL NEED TO PUT THIS SOMEWHERE ELSE
@@ -25,16 +25,18 @@ public class DotChaser {
    *       WE DON'T HAVE TO USE NODES HERE?
    * This class is for linked lists of Thing's
    */
+  /*
   public static class Node {
     public Thing data;
     public Node  next;
   }
+    */
 
   // EEEEEK! STATIC METHODS!!! PLEASE FIND THEM A BETTER HOME.
-  public static void rightTurn(Thing t) {
+  /* public static void rightTurn(Thing t) {
     t.dir = (t.dir + 1) % 4;
-  }
-
+  } */
+  /*
   public static void leftTurn(Thing t) {
     t.dir = (t.dir + 3) % 4;
   }
@@ -66,7 +68,7 @@ public class DotChaser {
       }
     }
   }
-
+  
   public static void step(Thing t) {
     final int[] dc = {
       0, 1, 0, -1
@@ -76,7 +78,7 @@ public class DotChaser {
     t.row += dr[t.dir];
     t.col += dc[t.dir];
   }
-
+  */
   
   /**
    * This static method is ok :)
@@ -88,50 +90,59 @@ public class DotChaser {
       N = Integer.parseInt(args[0]);
 
     // INSTEAD OF A NODE, CREATE SOMETHING MORE USER-FRIENDLY.
-    Node L = null;
+    //Node L = null;
+    ThingList L = new ThingList();
     int count = 0;
 
-    while( true ) {
+    while( count < 1000 ) { //true
       // Every N rounds, add another typeA and typeB Thing.
       if( count % N == 0 ) {
 
         // Add a typeA thing to the list.
         // (GEE, THAT'S A LOT OF CODE FOR JUST CREATING ONE THING)
-        Thing tA = new Thing();
+        TypeA tA = new TypeA(45, 50);
+        /*Thing tA = new Thing();
         tA.row = 45;
-        tA.col = 50;
-        Node nA = new Node();
+        tA.col = 50;*/
+        L.addThing(tA);
+        /*Node nA = new Node();
         nA.data = tA;
         nA.next = L;
-        L       = nA;
+        L       = nA;*/
 
         // Add a typeB thing to the list
-        Thing tB = new Thing();
+        TypeB tB = new TypeB(55, 50, 'b');
+        /*Thing tB = new Thing();
         tB.row     = 55;
         tB.col     = 50;
         tB.lab     = 'b';
-        tB.isTypeB = true;
+        tB.isTypeB = true;*/
+        L.addThing(tB);
+        /*
         Node nB = new Node();
         nB.data = tB;
         nB.next = L;
-        L       = nB;
+        L       = nB;*/
+        TypeC tC = new TypeC(45, 55, 'y');
+        L.addThing(tC);
       }
 
       // Print out each thing.
       // (SEEMS LIKE A NICE PRINTALL() METHOD CALL WOULD WORK HERE)
       // (SEEMS LIKE A toString() METHOD IN THE CLASS WOULD ALSO BE NICE)
-      for( Node T = L; T != null; T = T.next )
+      /*for( Node T = L; T != null; T = T.next )
         System.out.println(T.data.row + " " + T.data.col + " " + T.data.lab);
-
+  
       System.out.println("done");
-      System.out.flush();
-
+      System.out.flush(); */
+      L.printAll();
       // Move each thing.
       // (SEEMS LIKE A NICE MOVEALL() METHOD CALL WOULD WORK HERE)
-      for( Node T = L; T != null; T = T.next ) {
+      /*for( Node T = L; T != null; T = T.next ) {
         maybeTurn(T.data);
         step(T.data);
-      }
+      }*/
+      L.moveAll(rand);
       count++;
     }
   }
